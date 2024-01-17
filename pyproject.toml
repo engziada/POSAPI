@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "posapi"
+version = "0.1.0"
+description = ""
+authors = ["muhammad ziada <engziada@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+python-escpos = {extras = ["usb"], version = "^3.1"}
+flask = "^3.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
