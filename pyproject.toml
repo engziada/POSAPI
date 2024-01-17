@@ -1,15 +1,15 @@
 [tool.poetry]
-name = "posapi"
+name = "repl-nix-posapi"
 version = "0.1.0"
 description = ""
-authors = ["muhammad ziada <engziada@gmail.com>"]
+authors = ["Replit user <<>>"]
 readme = "README.md"
+packages = [{include = "repl_nix_posapi"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-python-escpos = {extras = ["usb"], version = "^3.1"}
-flask = "^3.0.0"
 escpos = "^2.0.0"
+flask = "^3.0.0"
 
 
 [build-system]

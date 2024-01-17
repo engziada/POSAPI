@@ -1,27 +1,31 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from escpos.printer import Usb
 
 app = Flask(__name__)
 
 @app.route('/print_invoice', methods=['POST'])
 def print_invoice():
-    # استلام البيانات من العميل
-    invoice_data = request.json
+    try:
+        # Get invoice data from the request
+        invoice_data = request.json
 
-    # اتصال بالطابعة
-    p = Usb(0x0456, 0x0808, 0)
+        # Connect to the USB printer
+        # p = Usb(0x0456, 0x0808, 0)
+        p = Usb(0x0456, 0x0808, 0, backend='libusb1')
 
-    # طباعة الفاتورة بدون عرضها
-    p.text("Invoice Details:\n")
-    p.text("================\n")
-    p.text(f"Customer: {invoice_data['customer_name']}\n")
-    p.text(f"Amount: {invoice_data['amount']}\n")
-    # قم بإضافة المزيد من المعلومات حسب حاجتك
 
-    # اغلاق الاتصال بالطابعة
-    p.cut()
+        # Print the invoice
+        p.text("Invoice Details:\n")
+        p.text("================\n")
+        p.text(f"Customer: {invoice_data['customer_name']}\n")
+        p.text(f"Amount: {invoice_data['amount']}\n")
+        # Add more details as needed
 
-    return "Invoice printed successfully!"
+        # Cut the paper and close the connection
+        p.cut()
+        return jsonify({"status": "success", "message": "Invoice printed successfully!"})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
