@@ -6,9 +6,10 @@ authors = ["muhammad ziada <engziada@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 python-escpos = {extras = ["usb"], version = "^3.1"}
 flask = "^3.0.0"
+escpos = "^2.0.0"
 
 
 [build-system]
